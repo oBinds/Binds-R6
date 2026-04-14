@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Binds R6 Script</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-card:#12121a; --bg-card-hover:#1a1a25; --border-color:#2a2a3a;
+  --accent-green:#0f0; --accent-blue:#3ABEFF; --accent-purple:#B27FFF;
+  --accent-pink:#ff69b4; --accent-red:#ff0000; --accent-orange:#ff8c00;
+  --accent-cyan:#00d4ff; --accent-yellow:#ffd700; --accent-gray:#555;
+  --text-primary:#ffffff; --text-secondary:#8888aa;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#04040a;color:var(--text-primary);font-family:'Rajdhani',sans-serif;line-height:1.6;min-height:100vh;overflow-x:hidden;}
+#bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+.scanlines{position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:2;}
+.container{max-width:1000px;margin:0 auto;padding:40px 20px;position:relative;z-index:3;}
+header{text-align:center;margin-bottom:60px;position:relative;}
+header::after{content:'';position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:300px;height:1px;background:linear-gradient(90deg,transparent,var(--accent-cyan),transparent);}
+.logo{font-family:'Orbitron',sans-serif;font-size:3.2rem;font-weight:900;letter-spacing:6px;color:#000;text-shadow:0 0 10px rgba(0,212,255,0.9),0 0 20px rgba(0,212,255,0.7),0 0 40px rgba(0,212,255,0.5),0 0 80px rgba(0,212,255,0.3);animation:logoPulse 3s ease-in-out infinite alternate;}
+@keyframes logoPulse{0%{text-shadow:0 0 10px rgba(0,212,255,0.9),0 0 20px rgba(0,212,255,0.7),0 0 40px rgba(0,212,255,0.4);}100%{text-shadow:0 0 20px rgba(0,212,255,1),0 0 40px rgba(0,212,255,0.9),0 0 80px rgba(0,212,255,0.6),0 0 120px rgba(0,212,255,0.3);}}
+.subtitle{font-family:'Orbitron',sans-serif;font-size:0.9rem;color:#000;text-shadow:0 0 5px rgba(0,212,255,0.8),0 0 10px rgba(0,212,255,0.6),0 0 20px rgba(0,212,255,0.4);letter-spacing:5px;margin-top:10px;text-transform:uppercase;}
+.section-title{font-family:'Orbitron',sans-serif;font-size:1.4rem;font-weight:700;color:var(--accent-cyan);margin:50px 0 25px;padding-bottom:10px;border-bottom:1px solid rgba(0,212,255,0.3);display:flex;align-items:center;gap:15px;text-shadow:0 0 10px var(--accent-cyan),0 0 20px var(--accent-cyan);position:relative;}
+.section-title::after{content:'';position:absolute;bottom:-1px;left:0;width:80px;height:2px;background:var(--accent-cyan);box-shadow:0 0 10px var(--accent-cyan);}
+.page-label{display:inline-block;font-family:'Orbitron',sans-serif;font-size:0.65rem;letter-spacing:2px;padding:3px 10px;border-radius:4px;margin-bottom:8px;font-weight:700;}
+.features-grid{display:grid;gap:20px;}
+.feature-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:25px;transition:all 0.3s ease;position:relative;overflow:hidden;}
+.feature-card::after{content:'';position:absolute;top:-50%;left:-60%;width:40%;height:200%;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.06) 50%,transparent 60%);transform:skewX(-15deg);transition:left 0.5s ease;pointer-events:none;}
+.feature-card:hover::after{left:120%;}
+.feature-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--card-accent,var(--accent-cyan));box-shadow:0 0 18px var(--card-accent,var(--accent-cyan));transition:box-shadow 0.3s;}
+.feature-card:hover{background:var(--bg-card-hover);transform:translateX(5px);border-color:var(--card-accent,var(--accent-cyan));box-shadow:0 0 25px var(--card-accent,var(--accent-cyan));}
+.feature-card.green{--card-accent:var(--accent-green);}.feature-card.blue{--card-accent:var(--accent-blue);}.feature-card.purple{--card-accent:var(--accent-purple);}.feature-card.pink{--card-accent:var(--accent-pink);}.feature-card.orange{--card-accent:var(--accent-orange);}.feature-card.cyan{--card-accent:var(--accent-cyan);}.feature-card.yellow{--card-accent:var(--accent-yellow);}.feature-card.red{--card-accent:var(--accent-red);}
+.feature-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:15px;flex-wrap:wrap;gap:10px;}
+.feature-name{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;}
+.feature-combo{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.key{border-radius:6px;padding:6px 12px;font-family:'Orbitron',sans-serif;font-size:0.8rem;font-weight:700;color:#000;white-space:nowrap;transition:transform 0.2s;}
+.key:hover{transform:translateY(-2px);}
+.key-plus{color:var(--text-secondary);font-weight:700;}
+.feature-desc{font-size:1.05rem;line-height:1.7;}
+.led-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-top:10px;}
+.led-item{display:flex;align-items:center;gap:15px;padding:15px;background:var(--bg-card);border-radius:8px;border:1px solid var(--border-color);transition:transform 0.2s;}
+.led-item:hover{transform:translateY(-2px);}
+.led-dot{width:24px;height:24px;border-radius:50%;box-shadow:0 0 15px currentColor,inset 0 0 10px rgba(255,255,255,0.3);flex-shrink:0;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+.led-dot.green{background:var(--accent-green);color:var(--accent-green);}.led-dot.blue{background:var(--accent-blue);color:var(--accent-blue);}.led-dot.purple{background:var(--accent-purple);color:var(--accent-purple);}.led-dot.pink{background:var(--accent-pink);color:var(--accent-pink);}.led-dot.orange{background:var(--accent-orange);color:var(--accent-orange);}.led-dot.cyan{background:var(--accent-cyan);color:var(--accent-cyan);}.led-dot.yellow{background:var(--accent-yellow);color:var(--accent-yellow);}.led-dot.red{background:var(--accent-red);color:var(--accent-red);}.led-dot.gray{background:var(--accent-gray);color:var(--accent-gray);}
+.led-label{font-size:1rem;color:var(--text-secondary);}
+.led-label strong{color:var(--text-primary);}
+.quick-ref{background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:25px;overflow-x:auto;}
+.quick-ref table{width:100%;border-collapse:collapse;}
+.quick-ref th,.quick-ref td{padding:12px 15px;text-align:left;border-bottom:1px solid var(--border-color);}
+.quick-ref th{font-family:'Orbitron',sans-serif;font-size:0.8rem;color:var(--accent-cyan);text-shadow:0 0 10px var(--accent-cyan);text-transform:uppercase;letter-spacing:2px;}
+.quick-ref tr:last-child td{border-bottom:none;}
+.quick-ref tr{transition:background 0.2s;}
+.quick-ref tr:hover{background:var(--bg-card-hover);}
+.tips-list{list-style:none;}
+.tips-list li{padding:15px 20px 15px 50px;position:relative;background:var(--bg-card);margin-bottom:10px;border-radius:8px;border-left:3px solid var(--accent-cyan);font-size:1.05rem;transition:transform 0.2s;}
+.tips-list li:hover{transform:translateX(4px);}
+.tips-list li::before{content:'▸';position:absolute;left:20px;color:var(--accent-cyan);font-size:1.2rem;}
+.op-grid{display:flex;flex-wrap:wrap;gap:6px;}
+.op-tag{border-radius:4px;padding:3px 8px;font-size:0.8rem;color:var(--text-secondary);transition:all 0.2s;}
+.op-tag.atk{background:rgba(58,190,255,0.1);border:1px solid rgba(58,190,255,0.2);}
+.op-tag.atk:hover{color:#fff;border-color:rgba(58,190,255,0.5);}
+.op-tag.def{background:rgba(178,127,255,0.1);border:1px solid rgba(178,127,255,0.2);}
+.op-tag.def:hover{color:#fff;border-color:rgba(178,127,255,0.5);}
+footer{text-align:center;padding:40px 20px;border-top:1px solid var(--border-color);margin-top:60px;position:relative;}
+footer::before{content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:200px;height:1px;background:linear-gradient(90deg,transparent,var(--accent-cyan),transparent);}
+footer p{color:var(--text-secondary);font-size:0.95rem;margin-bottom:10px;}
+.author{font-family:'Orbitron',sans-serif;color:#000;font-weight:700;font-size:1.1rem;text-shadow:0 0 8px rgba(0,212,255,0.9),0 0 16px rgba(0,212,255,0.7),0 0 24px rgba(0,212,255,0.5);}
+@media(max-width:600px){.logo{font-size:2rem;}.feature-header{flex-direction:column;}.led-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<div class="scanlines"></div>
+<div class="container">
+
+<header>
+  <h1 class="logo">BINDS R6</h1>
+  <p class="subtitle">Rainbow Six Siege — Cronus Zen Script V1.0</p>
+  <div style="margin-top:20px;">
+    <div style="color:#000;text-shadow:0 0 5px var(--accent-cyan),0 0 10px var(--accent-cyan),0 0 15px var(--accent-cyan);font-family:'Orbitron',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:2px;text-align:center;">by O.BINDS</div>
+    <div style="color:#000;text-shadow:0 0 5px var(--accent-cyan),0 0 10px var(--accent-cyan);font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:2px;text-align:center;margin-top:6px;">HMU For Script — @o.binds</div>
+  </div>
+</header>
+
+<section>
+<h2 class="section-title">Features</h2>
+<div class="features-grid">
+
+<div class="feature-card cyan">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(0,212,255,0.15);color:var(--accent-cyan);border:1px solid rgba(0,212,255,0.3);">ALL PAGES</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-cyan);text-shadow:0 0 8px var(--accent-cyan);">Open Menu</span>
+    <div class="feature-combo">
+      <span class="key" style="background:var(--accent-cyan);">L2</span><span class="key-plus">+</span><span class="key" style="background:var(--accent-cyan);">OPTIONS</span>
+    </div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-cyan);">Hold L2 and press Options to open the menu. <strong style="color:#fff;">UP/DOWN</strong> navigates categories, <strong style="color:#fff;">CROSS</strong> enters, <strong style="color:#fff;">CIRCLE</strong> goes back, <strong style="color:#fff;">LEFT/RIGHT D-Pad</strong> scrolls pages inside a category. All settings save automatically on close.</p>
+</div>
+
+<div class="feature-card blue">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(58,190,255,0.15);color:var(--accent-blue);border:1px solid rgba(58,190,255,0.3);">ANTI-RECOIL — ATK &amp; DEF</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-blue);text-shadow:0 0 8px var(--accent-blue);">Per-Gun Anti-Recoil</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-blue);">MENU ONLY</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-blue);">Every gun has its own <strong style="color:#fff;">Vertical</strong> and <strong style="color:#fff;">Horizontal</strong> recoil values saved permanently to the Zen. Switching guns on the same operator automatically loads the correct values for each — no manual adjustment needed. Tune in <strong style="color:#fff;">Anti-Recoil → AR Vertical / AR Horiz.</strong></p>
+</div>
+
+<div class="feature-card cyan">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(0,212,255,0.15);color:var(--accent-cyan);border:1px solid rgba(0,212,255,0.3);">OP &amp; GUN — ATK &amp; DEF</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-cyan);text-shadow:0 0 8px var(--accent-cyan);">Gun Selection</span>
+    <div class="feature-combo">
+      <span class="key" style="background:var(--accent-cyan);">UP/DOWN</span><span class="key-plus">browse</span><span class="key" style="background:var(--accent-cyan);">✕ SELECT</span>
+    </div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-cyan);">Open the <strong style="color:#fff;">Gun</strong> page for your operator. Scroll UP/DOWN to browse all primaries and secondaries — browsing never changes values. Press <strong style="color:#fff;">✕</strong> on the gun you have equipped in-game. A <strong style="color:#fff;">*</strong> marks the active selection. Primary and secondary are selected independently. When you swap loadout mid-match, just re-select the new gun in the menu.</p>
+</div>
+
+<div class="feature-card green">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(0,255,0,0.15);color:var(--accent-green);border:1px solid rgba(0,255,0,0.3);">RAPID FIRE — ATK &amp; DEF</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-green);text-shadow:0 0 8px var(--accent-green);">Rapid Fire</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-green);">MENU ONLY</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-green);">Rapid fire for semi-automatic guns. Semi guns default <strong style="color:#fff;">ON</strong> — OTS-03, CAMRS, AR-15.50, D-50, 417, SDP 9mm, PMR90A2, TACIT .45, P226 MK 25, P9 etc. Full-auto guns default <strong style="color:#fff;">OFF</strong>. Toggle per slot and adjust RF Speed in the <strong style="color:#fff;">Rapid Fire</strong> pages. Use <strong style="color:#fff;">RF For All</strong> to override every gun at once.</p>
+</div>
+
+<div class="feature-card purple">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(178,127,255,0.15);color:var(--accent-purple);border:1px solid rgba(178,127,255,0.3);">MOVEMENT — ATK &amp; DEF</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-purple);text-shadow:0 0 8px var(--accent-purple);">Movement Suite</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-purple);">MENU ONLY</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-purple);">Full per-side movement features, each with its own speed slider.<br>
+  <strong style="color:#fff;">Crouch Spam</strong> — rapid crouch/stand while firing &nbsp;|&nbsp; <strong style="color:#fff;">Strafe</strong> — automated side movement<br>
+  <strong style="color:#fff;">Shaiko Lean</strong> — alternates L3/R3 while holding ADS+R2 &nbsp;|&nbsp; <strong style="color:#fff;">Lean Spam</strong> — spams R1/L1<br>
+  <strong style="color:#fff;">Tea Bag, Auto Lean, Prone Shot, Hip Lean, Inverted AR</strong> and more. ATK and DEF fully independent.</p>
+</div>
+
+<div class="feature-card orange">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,140,0,0.15);color:var(--accent-orange);border:1px solid rgba(255,140,0,0.3);">MISC — ATK &amp; DEF</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-orange);text-shadow:0 0 8px var(--accent-orange);">Stick Lean</span>
+    <div class="feature-combo">
+      <span class="key" style="background:var(--accent-orange);">L2+L3</span><span class="key-plus">/</span><span class="key" style="background:var(--accent-orange);">L2+R3</span>
+    </div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-orange);">Stick-click lean spam triggered by <strong style="color:#fff;">L2 + L3/R3</strong>.<br>
+  <strong style="color:#fff;">Tap</strong> L2+L3 or L2+R3 — works as a completely normal single lean.<br>
+  <strong style="color:#fff;">Hold</strong> L2+L3 past 250ms — continuously spams lean left (L3 on/off cycle).<br>
+  <strong style="color:#fff;">Hold</strong> L2+R3 past 250ms — continuously spams lean right (R3 on/off cycle).<br>
+  Speed uses <strong style="color:#fff;">Shaiko Spd</strong> setting. Enable in Misc → Stick Lean. ATK and DEF independent.</p>
+</div>
+
+<div class="feature-card yellow">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,215,0,0.15);color:var(--accent-yellow);border:1px solid rgba(255,215,0,0.3);">R6 MISCS — PAGE 58</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-yellow);text-shadow:0 0 8px var(--accent-yellow);">Soft Triggers</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-yellow);">MENU ONLY</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-yellow);">Any touch of R2 or L2 — even the slightest press — instantly fires the trigger at 100%. Eliminates all trigger deadzone for the fastest possible ADS and fire response. <strong style="color:#fff;">ON by default.</strong> Toggle via <strong style="color:#fff;">R6 Miscs → Soft Triggers</strong> (accessible from the category screen with the Miscs button).</p>
+</div>
+
+<div class="feature-card pink">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,105,180,0.15);color:var(--accent-pink);border:1px solid rgba(255,105,180,0.3);">MISC — ATK &amp; DEF</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-pink);text-shadow:0 0 8px var(--accent-pink);">Misc Options</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-pink);">MENU ONLY</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-pink);">Per-side extras including <strong style="color:#fff;">RF For All, Skel Key RF, On Cams</strong> (recoil on operator cameras), <strong style="color:#fff;">Pin On Shot, Auto Scan, Dead Zone</strong> adjustment, <strong style="color:#fff;">Inverted AR, Abilities, LED</strong> colour control, and <strong style="color:#fff;">Stick Lean</strong> toggle.</p>
+</div>
+
+</div>
+</section>
+
+<section>
+<h2 class="section-title">Operators</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+<div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:20px;">
+  <div style="font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:3px;color:var(--accent-blue);text-shadow:0 0 8px var(--accent-blue);margin-bottom:15px;text-align:center;">▲ ATTACKERS (39)</div>
+  <div class="op-grid">
+    <span class="op-tag atk">STRIKER</span><span class="op-tag atk">SLEDGE</span><span class="op-tag atk">THATCHER</span><span class="op-tag atk">ASH</span><span class="op-tag atk">THERMITE</span><span class="op-tag atk">TWITCH</span><span class="op-tag atk">MONTAGNE</span><span class="op-tag atk">GLAZ</span><span class="op-tag atk">FUZE</span><span class="op-tag atk">BLITZ</span><span class="op-tag atk">IQ</span><span class="op-tag atk">BUCK</span><span class="op-tag atk">BLACKBEARD</span><span class="op-tag atk">CAPITAO</span><span class="op-tag atk">HIBANA</span><span class="op-tag atk">JACKAL</span><span class="op-tag atk">YING</span><span class="op-tag atk">ZOFIA</span><span class="op-tag atk">DOKKAEBI</span><span class="op-tag atk">LION</span><span class="op-tag atk">FINKA</span><span class="op-tag atk">MAVERICK</span><span class="op-tag atk">NOMAD</span><span class="op-tag atk">GRIDLOCK</span><span class="op-tag atk">NOKK</span><span class="op-tag atk">AMARU</span><span class="op-tag atk">KALI</span><span class="op-tag atk">IANA</span><span class="op-tag atk">ACE</span><span class="op-tag atk">ZERO</span><span class="op-tag atk">FLORES</span><span class="op-tag atk">OSA</span><span class="op-tag atk">SENS</span><span class="op-tag atk">GRIM</span><span class="op-tag atk">BRAVA</span><span class="op-tag atk">RAM</span><span class="op-tag atk">DEIMOS</span><span class="op-tag atk">RAUORA</span><span class="op-tag atk">SOLIDSNAKE</span>
+  </div>
+</div>
+<div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:20px;">
+  <div style="font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:3px;color:var(--accent-purple);text-shadow:0 0 8px var(--accent-purple);margin-bottom:15px;text-align:center;">▼ DEFENDERS (38)</div>
+  <div class="op-grid">
+    <span class="op-tag def">SENTRY</span><span class="op-tag def">SMOKE</span><span class="op-tag def">MUTE</span><span class="op-tag def">CASTLE</span><span class="op-tag def">PULSE</span><span class="op-tag def">DOC</span><span class="op-tag def">ROOK</span><span class="op-tag def">KAPKAN</span><span class="op-tag def">TACHANKA</span><span class="op-tag def">JAGER</span><span class="op-tag def">BANDIT</span><span class="op-tag def">FROST</span><span class="op-tag def">VALKYRIE</span><span class="op-tag def">CAVEIRA</span><span class="op-tag def">ECHO</span><span class="op-tag def">MIRA</span><span class="op-tag def">LESION</span><span class="op-tag def">ELA</span><span class="op-tag def">VIGIL</span><span class="op-tag def">MAESTRO</span><span class="op-tag def">ALIBI</span><span class="op-tag def">CLASH</span><span class="op-tag def">KAID</span><span class="op-tag def">MOZZIE</span><span class="op-tag def">WARDEN</span><span class="op-tag def">GOYO</span><span class="op-tag def">WAMAI</span><span class="op-tag def">ORYX</span><span class="op-tag def">MELUSI</span><span class="op-tag def">ARUNI</span><span class="op-tag def">THUNDERBIRD</span><span class="op-tag def">THORN</span><span class="op-tag def">AZAMI</span><span class="op-tag def">SOLIS</span><span class="op-tag def">FENRIR</span><span class="op-tag def">TUBARAO</span><span class="op-tag def">SKOPOS</span><span class="op-tag def">DENARI</span>
+  </div>
+</div>
+</div>
+</section>
+
+<section>
+<h2 class="section-title">OLED Display</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-bottom:40px;">
+
+<div>
+  <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:2px;color:var(--accent-blue);text-shadow:0 0 8px var(--accent-blue);margin-bottom:8px;text-align:center;">ATTACKER EXAMPLE</div>
+  <div style="background:#000;border:3px solid #222;border-radius:8px;padding:18px 20px;font-family:'Courier New',monospace;font-size:0.88rem;color:#fff;box-shadow:0 0 30px rgba(0,0,0,0.8),inset 0 0 20px rgba(58,190,255,0.04);position:relative;">
+    <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#0a0a0f;padding:0 10px;font-family:'Orbitron',sans-serif;font-size:0.55rem;color:var(--text-secondary);letter-spacing:2px;">OLED</div>
+    <div style="text-align:center;font-size:1rem;font-weight:bold;margin-bottom:8px;color:#3ABEFF;text-shadow:0 0 8px #3ABEFF;">SLEDGE</div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Gun</span><span style="color:#00d4ff;">L85A2 *</span></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>AR Vertical</span><span style="color:#0f0;">26</span></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>AR Horiz.</span><span style="color:#0f0;">7</span></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Rapid Fire</span><span style="color:#555;">OFF</span></div>
+    <div style="display:flex;justify-content:space-between;"><span>Crouch Spam</span><span style="color:#555;">OFF</span></div>
+  </div>
+</div>
+
+<div>
+  <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:2px;color:var(--accent-purple);text-shadow:0 0 8px var(--accent-purple);margin-bottom:8px;text-align:center;">DEFENDER EXAMPLE</div>
+  <div style="background:#000;border:3px solid #222;border-radius:8px;padding:18px 20px;font-family:'Courier New',monospace;font-size:0.88rem;color:#fff;box-shadow:0 0 30px rgba(0,0,0,0.8),inset 0 0 20px rgba(178,127,255,0.04);position:relative;">
+    <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#0a0a0f;padding:0 10px;font-family:'Orbitron',sans-serif;font-size:0.55rem;color:var(--text-secondary);letter-spacing:2px;">OLED</div>
+    <div style="text-align:center;font-size:1rem;font-weight:bold;margin-bottom:8px;color:#B27FFF;text-shadow:0 0 8px #B27FFF;">JAGER</div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Gun</span><span style="color:#B27FFF;">M870 *</span></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>AR Vertical</span><span style="color:#0f0;">24</span></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>AR Horiz.</span><span style="color:#0f0;">0</span></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Rapid Fire</span><span style="color:#555;">OFF</span></div>
+    <div style="display:flex;justify-content:space-between;"><span>Shaiko Lean</span><span style="color:#0f0;">ON</span></div>
+  </div>
+</div>
+
+<div>
+  <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:2px;color:var(--accent-cyan);text-shadow:0 0 8px var(--accent-cyan);margin-bottom:8px;text-align:center;">GUN PAGE EXAMPLE</div>
+  <div style="background:#000;border:3px solid #222;border-radius:8px;padding:18px 20px;font-family:'Courier New',monospace;font-size:0.88rem;color:#fff;box-shadow:0 0 30px rgba(0,0,0,0.8),inset 0 0 20px rgba(0,212,255,0.04);position:relative;">
+    <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#0a0a0f;padding:0 10px;font-family:'Orbitron',sans-serif;font-size:0.55rem;color:var(--text-secondary);letter-spacing:2px;">OLED</div>
+    <div style="text-align:center;font-size:1rem;font-weight:bold;margin-bottom:8px;color:#00d4ff;text-shadow:0 0 8px #00d4ff;">PMR90A2</div>
+    <div style="text-align:center;margin-bottom:8px;font-size:0.8rem;color:#666;">HANDGUN</div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="color:#0f0;">PRI *</span><span style="color:#00d4ff;">PMR90A2</span></div>
+    <div style="margin-top:10px;font-size:0.75rem;color:#444;text-align:center;">↑↓ Browse &nbsp;·&nbsp; ✕ Select</div>
+  </div>
+</div>
+
+<div>
+  <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:2px;color:var(--accent-yellow);text-shadow:0 0 8px var(--accent-yellow);margin-bottom:8px;text-align:center;">R6 MISCS</div>
+  <div style="background:#000;border:3px solid #222;border-radius:8px;padding:18px 20px;font-family:'Courier New',monospace;font-size:0.88rem;color:#fff;box-shadow:0 0 30px rgba(0,0,0,0.8),inset 0 0 20px rgba(255,215,0,0.04);position:relative;">
+    <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#0a0a0f;padding:0 10px;font-family:'Orbitron',sans-serif;font-size:0.55rem;color:var(--text-secondary);letter-spacing:2px;">OLED</div>
+    <div style="text-align:center;font-size:1rem;font-weight:bold;margin-bottom:8px;color:#ffd700;text-shadow:0 0 8px #ffd700;">Binds R6</div>
+    <div style="display:flex;justify-content:space-between;"><span>Soft Triggers</span><span style="color:#0f0;">ON</span></div>
+  </div>
+</div>
+
+</div>
+
+<h2 class="section-title">Quick Reference</h2>
+<div class="quick-ref">
+<table>
+  <thead><tr><th>Input</th><th>Action</th><th>Where</th></tr></thead>
+  <tbody>
+    <tr><td><span class="key" style="background:var(--accent-cyan);">L2</span> + <span class="key" style="background:var(--accent-cyan);">OPTIONS</span></td><td>Open / Close Menu</td><td style="color:var(--accent-cyan);">All</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-blue);">✕</span> on Gun Page</td><td>Select active gun — loads its vert/horiz/RF</td><td style="color:var(--accent-blue);">Op &amp; Gun</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-green);">UP / DOWN</span> on Gun Page</td><td>Browse guns without changing values</td><td style="color:var(--accent-green);">Op &amp; Gun</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-purple);">L2</span> + <span class="key" style="background:var(--accent-purple);">L3</span> hold</td><td>Spam lean left continuously</td><td style="color:var(--accent-purple);">Misc → Stick Lean ON</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-purple);">L2</span> + <span class="key" style="background:var(--accent-purple);">R3</span> hold</td><td>Spam lean right continuously</td><td style="color:var(--accent-purple);">Misc → Stick Lean ON</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-orange);">L2</span> + <span class="key" style="background:var(--accent-orange);">L3/R3</span> tap</td><td>Normal single lean (no spam)</td><td style="color:var(--accent-orange);">Misc → Stick Lean ON</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-pink);">L2</span> + <span class="key" style="background:var(--accent-pink);">R2</span> + <span class="key" style="background:var(--accent-pink);">hold ADS</span></td><td>Shaiko Lean (alt L3/R3)</td><td style="color:var(--accent-pink);">Movement → Shaiko ON</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-yellow);">R2 / L2</span> any touch</td><td>Full trigger press instantly</td><td style="color:var(--accent-yellow);">R6 Miscs → Soft Triggers ON</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section>
+<h2 class="section-title">LED Feedback</h2>
+<div class="led-grid">
+  <div class="led-item"><div class="led-dot cyan"></div><span class="led-label"><strong>Cyan</strong> — Script active, idle</span></div>
+  <div class="led-item"><div class="led-dot green"></div><span class="led-label"><strong>Green</strong> — Menu open</span></div>
+  <div class="led-item"><div class="led-dot blue"></div><span class="led-label"><strong>Blue</strong> — Anti-Recoil active</span></div>
+  <div class="led-item"><div class="led-dot purple"></div><span class="led-label"><strong>Purple</strong> — Shaiko / Stick Lean</span></div>
+  <div class="led-item"><div class="led-dot orange"></div><span class="led-label"><strong>Orange</strong> — Rapid Fire firing</span></div>
+  <div class="led-item"><div class="led-dot yellow"></div><span class="led-label"><strong>Yellow</strong> — Crouch Spam on</span></div>
+  <div class="led-item"><div class="led-dot pink"></div><span class="led-label"><strong>Pink</strong> — Lean Spam on</span></div>
+  <div class="led-item"><div class="led-dot red"></div><span class="led-label"><strong>Red</strong> — Abilities active</span></div>
+  <div class="led-item"><div class="led-dot gray"></div><span class="led-label"><strong>Gray</strong> — All features OFF</span></div>
+</div>
+</section>
+
+<section>
+<h2 class="section-title">Tips &amp; Usage</h2>
+<ul class="tips-list">
+  <li><strong style="color:var(--accent-cyan);">First time setup:</strong> Clear the Zen's persistent memory before loading the script. This lets all the baked-in gun defaults load cleanly without old data interfering.</li>
+  <li><strong style="color:var(--accent-blue);">Selecting your gun every session:</strong> When you change your loadout in-game, open the menu, navigate to your op's <strong>Gun</strong> page and press ✕ on whichever gun you equipped. Values load instantly and save to the Zen — no need to do it again unless you swap guns.</li>
+  <li><strong style="color:var(--accent-green);">Same gun = same value:</strong> MPX on Valkyrie and MPX on Tubarao share the same saved values. Tuning MPX once updates it across every operator that uses it.</li>
+  <li><strong style="color:var(--accent-purple);">Shaiko vs Stick Lean:</strong> Shaiko (Movement tab) spams both left and right lean alternating while ADS+shooting. Stick Lean (Misc tab) spams one direction only — hold <strong>L2+L3</strong> for left, <strong>L2+R3</strong> for right. Best for aggressive one-way peeking.</li>
+  <li><strong style="color:var(--accent-orange);">Rapid Fire is already tuned:</strong> All semi guns come with RF ON pre-set at the right speed. Full-auto guns come with RF OFF. Any changes you make in the menu save permanently to the Zen.</li>
+  <li><strong style="color:var(--accent-yellow);">Soft Triggers are ON by default.</strong> Barely touching L2 or R2 fires instantly at 100%. Turn off in R6 Miscs if needed for any reason.</li>
+  <li><strong style="color:var(--accent-pink);">ATK and DEF are completely independent.</strong> Every feature — recoil, RF, movement speed, stick lean — can be configured differently per side. Changes on ATK never affect DEF.</li>
+  <li><strong style="color:var(--accent-red);">Everything saves automatically</strong> when you close the menu. Next power cycle loads your exact settings back. No need to reconfigure each session.</li>
+</ul>
+</section>
+
+<footer>
+  <p style="color:var(--accent-cyan);text-shadow:0 0 8px var(--accent-cyan);">Binds R6 Script V1.0</p>
+  <p class="author">Created by O.BINDS</p>
+  <p style="margin-top:15px;font-size:0.85rem;color:var(--accent-cyan);text-shadow:0 0 8px var(--accent-cyan);">For use with Cronus Zen / Cronus Max</p>
+  <p style="margin-top:8px;font-size:0.85rem;color:var(--accent-cyan);text-shadow:0 0 8px var(--accent-cyan);">Discord &amp; Instagram: <span style="color:#fff;text-shadow:0 0 8px var(--accent-cyan);">@o.binds</span></p>
+</footer>
+
+</div>
+<script>
+const canvas=document.getElementById('bg-canvas');
+const ctx=canvas.getContext('2d');
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+const themes=[
+  {primary:[0,212,255],secondary:[58,190,255]},
+  {primary:[178,127,255],secondary:[120,80,200]},
+  {primary:[0,212,255],secondary:[0,255,150]},
+  {primary:[58,190,255],secondary:[178,127,255]},
+];
+let ti=0,ni=1,bt=0;
+function l3(a,b,t){return a.map((v,i)=>Math.round(v+(b[i]-v)*t));}
+function rgb(c,a=1){return `rgba(${c[0]},${c[1]},${c[2]},${a})`;}
+const stars=Array.from({length:200},()=>({x:Math.random()*2000,y:Math.random()*1200,sz:Math.random()*1.5+0.3,sp:Math.random()*0.3+0.05,op:Math.random()*0.7+0.2,tw:Math.random()*Math.PI*2,ts:Math.random()*0.03+0.01}));
+let parts=Array.from({length:80},()=>sp(true));
+function sp(r){const t=themes[Math.floor(Math.random()*themes.length)];const c=Math.random()<0.5?t.primary:t.secondary;return{x:Math.random()*window.innerWidth,y:r?Math.random()*window.innerHeight:window.innerHeight+20,vx:(Math.random()-0.5)*0.8,vy:-(0.4+Math.random()*1.5),sz:Math.random()*3+0.5,op:Math.random()*0.8+0.2,c,life:1,decay:0.002+Math.random()*0.003,tw:Math.random()*Math.PI*2,ts:0.05+Math.random()*0.05};}
+let bolts=[],boltTimer=0;
+function mkBolt(col){const x=Math.random()*window.innerWidth;const segs=[];let cx=x,cy=0;while(cy<window.innerHeight*0.6){const nx=cx+(Math.random()-0.5)*80,ny=cy+30+Math.random()*60;segs.push({x1:cx,y1:cy,x2:nx,y2:ny});cx=nx;cy=ny;}return{segs,col,life:1,decay:0.05+Math.random()*0.08};}
+function hexGrid(col,alpha){const s=40,w=s*2,h=Math.sqrt(3)*s;ctx.strokeStyle=`rgba(${col[0]},${col[1]},${col[2]},${alpha})`;ctx.lineWidth=0.5;ctx.beginPath();for(let r=-1;r<canvas.height/h+2;r++)for(let c=-1;c<canvas.width/w+2;c++){const ox=c*w*0.75+(r%2?w*0.375:0),oy=r*h;for(let i=0;i<6;i++){const a=Math.PI/3*i-Math.PI/6,b=Math.PI/3*(i+1)-Math.PI/6;ctx.moveTo(ox+s*Math.cos(a),oy+s*Math.sin(a));ctx.lineTo(ox+s*Math.cos(b),oy+s*Math.sin(b));}}ctx.stroke();}
+function orbs(c1,c2,t){[[0.1,0.2,600],[0.9,0.8,500],[0.5,0.5,350],[0.2,0.85,300]].forEach(([fx,fy,r],i)=>{const p=0.06+0.03*Math.sin(t*0.8+i*1.5),ox=fx*canvas.width+Math.sin(t*0.3+i)*40,oy=fy*canvas.height+Math.cos(t*0.2+i)*30,col=i%2===0?c1:c2,g=ctx.createRadialGradient(ox,oy,0,ox,oy,r);g.addColorStop(0,`rgba(${col[0]},${col[1]},${col[2]},${p})`);g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.fillRect(0,0,canvas.width,canvas.height);});}
+let scanY=0,t=0;
+function animate(){
+  t+=0.008;bt+=0.0008;
+  if(bt>=1){bt=0;ti=ni;ni=(ni+1)%themes.length;}
+  const p=l3(themes[ti].primary,themes[ni].primary,bt),s2=l3(themes[ti].secondary,themes[ni].secondary,bt);
+  ctx.fillStyle='#03030a';ctx.fillRect(0,0,canvas.width,canvas.height);
+  orbs(p,s2,t);hexGrid(p,0.05);
+  const gg=ctx.createLinearGradient(0,canvas.height*0.75,0,canvas.height);gg.addColorStop(0,'rgba(0,0,0,0)');gg.addColorStop(1,`rgba(${p[0]},${p[1]},${p[2]},0.08)`);ctx.fillStyle=gg;ctx.fillRect(0,0,canvas.width,canvas.height);
+  stars.forEach(s=>{s.tw+=s.ts;s.x-=s.sp;if(s.x<0)s.x=canvas.width;const a=s.op*(0.5+0.5*Math.sin(s.tw));ctx.beginPath();ctx.arc(s.x,s.y,s.sz,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.fill();});
+  boltTimer++;if(boltTimer>80+Math.random()*120){boltTimer=0;bolts.push(mkBolt(p));if(Math.random()<0.3)bolts.push(mkBolt(s2));}
+  bolts=bolts.filter(b=>b.life>0);
+  bolts.forEach(b=>{b.life-=b.decay;ctx.save();ctx.shadowColor=rgb(b.col,1);ctx.shadowBlur=20*b.life;ctx.strokeStyle=rgb(b.col,b.life*0.9);ctx.lineWidth=1.5*b.life;ctx.beginPath();b.segs.forEach(sg=>{ctx.moveTo(sg.x1,sg.y1);ctx.lineTo(sg.x2,sg.y2);});ctx.stroke();ctx.restore();});
+  parts.forEach((p2,i)=>{p2.tw+=p2.ts;p2.life-=p2.decay;p2.x+=p2.vx;p2.y+=p2.vy;if(p2.life<=0||p2.y<-10)parts[i]=sp(false);const a=p2.op*p2.life*(0.7+0.3*Math.sin(p2.tw));ctx.save();ctx.shadowColor=rgb(p2.c,0.8);ctx.shadowBlur=8;ctx.beginPath();ctx.arc(p2.x,p2.y,p2.sz,0,Math.PI*2);ctx.fillStyle=rgb(p2.c,a);ctx.fill();ctx.restore();});
+  scanY=(scanY+1.5)%(canvas.height+80);const sg=ctx.createLinearGradient(0,scanY-40,0,scanY+40);sg.addColorStop(0,'rgba(0,0,0,0)');sg.addColorStop(0.5,`rgba(${p[0]},${p[1]},${p[2]},0.04)`);sg.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=sg;ctx.fillRect(0,scanY-40,canvas.width,80);
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>
