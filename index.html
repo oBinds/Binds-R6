@@ -6,13 +6,7 @@
 <title>Binds R6 Script</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg-card:#12121a; --bg-card-hover:#1a1a25; --border-color:#2a2a3a;
-  --accent-green:#0f0; --accent-blue:#3ABEFF; --accent-purple:#B27FFF;
-  --accent-pink:#ff69b4; --accent-red:#ff0000; --accent-orange:#ff8c00;
-  --accent-cyan:#00d4ff; --accent-yellow:#ffd700; --accent-gray:#555;
-  --text-primary:#ffffff; --text-secondary:#8888aa;
-}
+:root{--bg-card:#12121a;--bg-card-hover:#1a1a25;--border-color:#2a2a3a;--accent-green:#0f0;--accent-blue:#3ABEFF;--accent-purple:#B27FFF;--accent-pink:#ff69b4;--accent-red:#ff0000;--accent-orange:#ff8c00;--accent-cyan:#00d4ff;--accent-yellow:#ffd700;--accent-gray:#555;--text-primary:#ffffff;--text-secondary:#8888aa;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:#04040a;color:var(--text-primary);font-family:'Rajdhani',sans-serif;line-height:1.6;min-height:100vh;overflow-x:hidden;}
 #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
@@ -25,42 +19,44 @@ header::after{content:'';position:absolute;bottom:-20px;left:50%;transform:trans
 .subtitle{font-family:'Orbitron',sans-serif;font-size:0.9rem;color:#000;text-shadow:0 0 5px rgba(0,212,255,0.8),0 0 10px rgba(0,212,255,0.6),0 0 20px rgba(0,212,255,0.4);letter-spacing:5px;margin-top:10px;text-transform:uppercase;}
 .section-title{font-family:'Orbitron',sans-serif;font-size:1.4rem;font-weight:700;color:var(--accent-cyan);margin:50px 0 25px;padding-bottom:10px;border-bottom:1px solid rgba(0,212,255,0.3);display:flex;align-items:center;gap:15px;text-shadow:0 0 10px var(--accent-cyan),0 0 20px var(--accent-cyan);position:relative;}
 .section-title::after{content:'';position:absolute;bottom:-1px;left:0;width:80px;height:2px;background:var(--accent-cyan);box-shadow:0 0 10px var(--accent-cyan);}
+.subsection{font-family:'Orbitron',sans-serif;font-size:0.85rem;font-weight:700;color:var(--text-secondary);letter-spacing:4px;text-transform:uppercase;margin:35px 0 15px;padding-left:12px;border-left:3px solid var(--border-color);}
 .page-label{display:inline-block;font-family:'Orbitron',sans-serif;font-size:0.65rem;letter-spacing:2px;padding:3px 10px;border-radius:4px;margin-bottom:8px;font-weight:700;}
-.features-grid{display:grid;gap:20px;}
-.feature-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:25px;transition:all 0.3s ease;position:relative;overflow:hidden;}
+.features-grid{display:grid;gap:16px;}
+.features-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.feature-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:22px;transition:all 0.3s ease;position:relative;overflow:hidden;}
 .feature-card::after{content:'';position:absolute;top:-50%;left:-60%;width:40%;height:200%;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.06) 50%,transparent 60%);transform:skewX(-15deg);transition:left 0.5s ease;pointer-events:none;}
 .feature-card:hover::after{left:120%;}
 .feature-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--card-accent,var(--accent-cyan));box-shadow:0 0 18px var(--card-accent,var(--accent-cyan));transition:box-shadow 0.3s;}
-.feature-card:hover{background:var(--bg-card-hover);transform:translateX(5px);border-color:var(--card-accent,var(--accent-cyan));box-shadow:0 0 25px var(--card-accent,var(--accent-cyan));}
+.feature-card:hover{background:var(--bg-card-hover);transform:translateX(5px);border-color:var(--card-accent,var(--accent-cyan));box-shadow:0 0 20px var(--card-accent,var(--accent-cyan));}
 .feature-card.green{--card-accent:var(--accent-green);}.feature-card.blue{--card-accent:var(--accent-blue);}.feature-card.purple{--card-accent:var(--accent-purple);}.feature-card.pink{--card-accent:var(--accent-pink);}.feature-card.orange{--card-accent:var(--accent-orange);}.feature-card.cyan{--card-accent:var(--accent-cyan);}.feature-card.yellow{--card-accent:var(--accent-yellow);}.feature-card.red{--card-accent:var(--accent-red);}
-.feature-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:15px;flex-wrap:wrap;gap:10px;}
-.feature-name{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;}
-.feature-combo{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
-.key{border-radius:6px;padding:6px 12px;font-family:'Orbitron',sans-serif;font-size:0.8rem;font-weight:700;color:#000;white-space:nowrap;transition:transform 0.2s;}
+.feature-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+.feature-name{font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;}
+.feature-combo{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.key{border-radius:6px;padding:5px 10px;font-family:'Orbitron',sans-serif;font-size:0.75rem;font-weight:700;color:#000;white-space:nowrap;transition:transform 0.2s;}
 .key:hover{transform:translateY(-2px);}
 .key-plus{color:var(--text-secondary);font-weight:700;}
-.feature-desc{font-size:1.05rem;line-height:1.7;}
-.led-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-top:10px;}
-.led-item{display:flex;align-items:center;gap:15px;padding:15px;background:var(--bg-card);border-radius:8px;border:1px solid var(--border-color);transition:transform 0.2s;}
+.feature-desc{font-size:1rem;line-height:1.65;}
+.led-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:10px;}
+.led-item{display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg-card);border-radius:8px;border:1px solid var(--border-color);transition:transform 0.2s;}
 .led-item:hover{transform:translateY(-2px);}
-.led-dot{width:24px;height:24px;border-radius:50%;box-shadow:0 0 15px currentColor,inset 0 0 10px rgba(255,255,255,0.3);flex-shrink:0;animation:pulse 2s ease-in-out infinite;}
+.led-dot{width:22px;height:22px;border-radius:50%;box-shadow:0 0 15px currentColor,inset 0 0 10px rgba(255,255,255,0.3);flex-shrink:0;animation:pulse 2s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
 .led-dot.green{background:var(--accent-green);color:var(--accent-green);}.led-dot.blue{background:var(--accent-blue);color:var(--accent-blue);}.led-dot.purple{background:var(--accent-purple);color:var(--accent-purple);}.led-dot.pink{background:var(--accent-pink);color:var(--accent-pink);}.led-dot.orange{background:var(--accent-orange);color:var(--accent-orange);}.led-dot.cyan{background:var(--accent-cyan);color:var(--accent-cyan);}.led-dot.yellow{background:var(--accent-yellow);color:var(--accent-yellow);}.led-dot.red{background:var(--accent-red);color:var(--accent-red);}.led-dot.gray{background:var(--accent-gray);color:var(--accent-gray);}
-.led-label{font-size:1rem;color:var(--text-secondary);}
+.led-label{font-size:0.95rem;color:var(--text-secondary);}
 .led-label strong{color:var(--text-primary);}
-.quick-ref{background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:25px;overflow-x:auto;}
+.quick-ref{background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:22px;overflow-x:auto;}
 .quick-ref table{width:100%;border-collapse:collapse;}
-.quick-ref th,.quick-ref td{padding:12px 15px;text-align:left;border-bottom:1px solid var(--border-color);}
-.quick-ref th{font-family:'Orbitron',sans-serif;font-size:0.8rem;color:var(--accent-cyan);text-shadow:0 0 10px var(--accent-cyan);text-transform:uppercase;letter-spacing:2px;}
+.quick-ref th,.quick-ref td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border-color);}
+.quick-ref th{font-family:'Orbitron',sans-serif;font-size:0.75rem;color:var(--accent-cyan);text-shadow:0 0 8px var(--accent-cyan);text-transform:uppercase;letter-spacing:2px;}
 .quick-ref tr:last-child td{border-bottom:none;}
 .quick-ref tr{transition:background 0.2s;}
 .quick-ref tr:hover{background:var(--bg-card-hover);}
 .tips-list{list-style:none;}
-.tips-list li{padding:15px 20px 15px 50px;position:relative;background:var(--bg-card);margin-bottom:10px;border-radius:8px;border-left:3px solid var(--accent-cyan);font-size:1.05rem;transition:transform 0.2s;}
+.tips-list li{padding:13px 18px 13px 46px;position:relative;background:var(--bg-card);margin-bottom:8px;border-radius:8px;border-left:3px solid var(--accent-cyan);font-size:1rem;transition:transform 0.2s;}
 .tips-list li:hover{transform:translateX(4px);}
-.tips-list li::before{content:'▸';position:absolute;left:20px;color:var(--accent-cyan);font-size:1.2rem;}
-.op-grid{display:flex;flex-wrap:wrap;gap:6px;}
-.op-tag{border-radius:4px;padding:3px 8px;font-size:0.8rem;color:var(--text-secondary);transition:all 0.2s;}
+.tips-list li::before{content:'▸';position:absolute;left:16px;color:var(--accent-cyan);font-size:1.1rem;}
+.op-grid{display:flex;flex-wrap:wrap;gap:5px;}
+.op-tag{border-radius:4px;padding:3px 7px;font-size:0.78rem;color:var(--text-secondary);transition:all 0.2s;}
 .op-tag.atk{background:rgba(58,190,255,0.1);border:1px solid rgba(58,190,255,0.2);}
 .op-tag.atk:hover{color:#fff;border-color:rgba(58,190,255,0.5);}
 .op-tag.def{background:rgba(178,127,255,0.1);border:1px solid rgba(178,127,255,0.2);}
@@ -69,7 +65,7 @@ footer{text-align:center;padding:40px 20px;border-top:1px solid var(--border-col
 footer::before{content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:200px;height:1px;background:linear-gradient(90deg,transparent,var(--accent-cyan),transparent);}
 footer p{color:var(--text-secondary);font-size:0.95rem;margin-bottom:10px;}
 .author{font-family:'Orbitron',sans-serif;color:#000;font-weight:700;font-size:1.1rem;text-shadow:0 0 8px rgba(0,212,255,0.9),0 0 16px rgba(0,212,255,0.7),0 0 24px rgba(0,212,255,0.5);}
-@media(max-width:600px){.logo{font-size:2rem;}.feature-header{flex-direction:column;}.led-grid{grid-template-columns:1fr;}}
+@media(max-width:640px){.logo{font-size:2rem;}.features-grid-2{grid-template-columns:1fr;}.feature-header{flex-direction:column;}.led-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -86,98 +82,276 @@ footer p{color:var(--text-secondary);font-size:0.95rem;margin-bottom:10px;}
   </div>
 </header>
 
+<!-- ══════════════════════════════ FEATURES ══════════════════════════════ -->
 <section>
 <h2 class="section-title">Features</h2>
-<div class="features-grid">
 
+<!-- MENU -->
+<div class="subsection">Menu Navigation</div>
+<div class="features-grid">
 <div class="feature-card cyan">
   <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(0,212,255,0.15);color:var(--accent-cyan);border:1px solid rgba(0,212,255,0.3);">ALL PAGES</span></div>
   <div class="feature-header">
     <span class="feature-name" style="color:var(--accent-cyan);text-shadow:0 0 8px var(--accent-cyan);">Open Menu</span>
-    <div class="feature-combo">
-      <span class="key" style="background:var(--accent-cyan);">L2</span><span class="key-plus">+</span><span class="key" style="background:var(--accent-cyan);">OPTIONS</span>
-    </div>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-cyan);">L2</span><span class="key-plus">+</span><span class="key" style="background:var(--accent-cyan);">OPTIONS</span></div>
   </div>
-  <p class="feature-desc" style="color:var(--accent-cyan);">Hold L2 and press Options to open the menu. <strong style="color:#fff;">UP/DOWN</strong> navigates categories, <strong style="color:#fff;">CROSS</strong> enters, <strong style="color:#fff;">CIRCLE</strong> goes back, <strong style="color:#fff;">LEFT/RIGHT D-Pad</strong> scrolls pages inside a category. All settings save automatically on close.</p>
+  <p class="feature-desc" style="color:var(--accent-cyan);">Hold L2 and press Options to open the menu. <strong style="color:#fff;">UP/DOWN</strong> scrolls the category list (Op &amp; Gun, Anti-Recoil, Rapid Fire, Movement, Misc). <strong style="color:#fff;">CROSS</strong> enters a category. <strong style="color:#fff;">LEFT/RIGHT D-Pad</strong> scrolls through pages inside the selected category. <strong style="color:#fff;">CIRCLE</strong> goes back. All settings save automatically when you close the menu. The menu also has an <strong style="color:#fff;">R6 Miscs</strong> tab at the top level for global options.</p>
+</div>
 </div>
 
+<!-- OP & GUN -->
+<div class="subsection">Op &amp; Gun</div>
+<div class="features-grid">
 <div class="feature-card blue">
-  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(58,190,255,0.15);color:var(--accent-blue);border:1px solid rgba(58,190,255,0.3);">ANTI-RECOIL — ATK &amp; DEF</span></div>
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(58,190,255,0.15);color:var(--accent-blue);border:1px solid rgba(58,190,255,0.3);">PAGE 1 — ATK &amp; DEF</span></div>
   <div class="feature-header">
-    <span class="feature-name" style="color:var(--accent-blue);text-shadow:0 0 8px var(--accent-blue);">Per-Gun Anti-Recoil</span>
-    <div class="feature-combo"><span class="key" style="background:var(--accent-blue);">MENU ONLY</span></div>
+    <span class="feature-name" style="color:var(--accent-blue);text-shadow:0 0 8px var(--accent-blue);">Operator Select</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-blue);">UP / DOWN</span></div>
   </div>
-  <p class="feature-desc" style="color:var(--accent-blue);">Every gun has its own <strong style="color:#fff;">Vertical</strong> and <strong style="color:#fff;">Horizontal</strong> recoil values saved permanently to the Zen. Switching guns on the same operator automatically loads the correct values for each — no manual adjustment needed. Tune in <strong style="color:#fff;">Anti-Recoil → AR Vertical / AR Horiz.</strong></p>
+  <p class="feature-desc" style="color:var(--accent-blue);">Scroll UP/DOWN on the Operator page to change which operator's settings are active. The script remembers your last selected operator for both ATK and DEF separately — it loads back automatically on power on. <strong style="color:#fff;">39 Attackers</strong> and <strong style="color:#fff;">38 Defenders</strong> supported.</p>
 </div>
-
 <div class="feature-card cyan">
-  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(0,212,255,0.15);color:var(--accent-cyan);border:1px solid rgba(0,212,255,0.3);">OP &amp; GUN — ATK &amp; DEF</span></div>
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(0,212,255,0.15);color:var(--accent-cyan);border:1px solid rgba(0,212,255,0.3);">PAGE 2 — ATK &amp; DEF</span></div>
   <div class="feature-header">
     <span class="feature-name" style="color:var(--accent-cyan);text-shadow:0 0 8px var(--accent-cyan);">Gun Selection</span>
-    <div class="feature-combo">
-      <span class="key" style="background:var(--accent-cyan);">UP/DOWN</span><span class="key-plus">browse</span><span class="key" style="background:var(--accent-cyan);">✕ SELECT</span>
-    </div>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-cyan);">UP/DOWN</span><span class="key-plus">browse</span><span class="key" style="background:var(--accent-cyan);">✕</span><span class="key-plus">select</span></div>
   </div>
-  <p class="feature-desc" style="color:var(--accent-cyan);">Open the <strong style="color:#fff;">Gun</strong> page for your operator. Scroll UP/DOWN to browse all primaries and secondaries — browsing never changes values. Press <strong style="color:#fff;">✕</strong> on the gun you have equipped in-game. A <strong style="color:#fff;">*</strong> marks the active selection. Primary and secondary are selected independently. When you swap loadout mid-match, just re-select the new gun in the menu.</p>
+  <p class="feature-desc" style="color:var(--accent-cyan);">Scroll UP/DOWN to browse every gun assigned to the current operator — browsing alone never changes any values. Press <strong style="color:#fff;">✕ (Cross)</strong> on the gun you have equipped in-game to select it. A <strong style="color:#fff;">*</strong> appears next to the currently selected gun. Primary and secondary are selected independently. Every gun has its own saved vert/horiz/RF — selecting loads the correct values instantly.</p>
+</div>
 </div>
 
+<!-- ANTI-RECOIL -->
+<div class="subsection">Anti-Recoil</div>
+<div class="features-grid">
+<div class="feature-card blue">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(58,190,255,0.15);color:var(--accent-blue);border:1px solid rgba(58,190,255,0.3);">PAGES 3–4 — ATK &amp; DEF</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-blue);text-shadow:0 0 8px var(--accent-blue);">AR Vertical &amp; Horizontal</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-blue);">UP / DOWN</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-blue);">Every gun has its own <strong style="color:#fff;">Vertical</strong> (up/down recoil pull) and <strong style="color:#fff;">Horizontal</strong> (left/right drift) values saved permanently to the Zen. Adjust UP/DOWN to tune. Values are saved per gun globally — so MPX is always the same value on every operator that uses it. All values come pre-tuned from the script defaults and only need adjusting if you want something different.</p>
+</div>
+</div>
+
+<!-- RAPID FIRE -->
+<div class="subsection">Rapid Fire</div>
+<div class="features-grid">
 <div class="feature-card green">
-  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(0,255,0,0.15);color:var(--accent-green);border:1px solid rgba(0,255,0,0.3);">RAPID FIRE — ATK &amp; DEF</span></div>
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(0,255,0,0.15);color:var(--accent-green);border:1px solid rgba(0,255,0,0.3);">PAGE 5 — ATK &amp; DEF</span></div>
   <div class="feature-header">
     <span class="feature-name" style="color:var(--accent-green);text-shadow:0 0 8px var(--accent-green);">Rapid Fire</span>
-    <div class="feature-combo"><span class="key" style="background:var(--accent-green);">MENU ONLY</span></div>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-green);">UP</span><span class="key-plus">=ON</span><span class="key" style="background:var(--accent-green);">DOWN</span><span class="key-plus">=OFF</span></div>
   </div>
-  <p class="feature-desc" style="color:var(--accent-green);">Rapid fire for semi-automatic guns. Semi guns default <strong style="color:#fff;">ON</strong> — OTS-03, CAMRS, AR-15.50, D-50, 417, SDP 9mm, PMR90A2, TACIT .45, P226 MK 25, P9 etc. Full-auto guns default <strong style="color:#fff;">OFF</strong>. Toggle per slot and adjust RF Speed in the <strong style="color:#fff;">Rapid Fire</strong> pages. Use <strong style="color:#fff;">RF For All</strong> to override every gun at once.</p>
+  <p class="feature-desc" style="color:var(--accent-green);">Automatically spams R2 at the configured speed while you hold the trigger — turns any semi-auto into a full-auto. Pre-set <strong style="color:#fff;">ON</strong> for semi guns: OTS-03, CAMRS, AR-15.50, D-50, 417, SDP 9mm, PMR90A2, TACIT .45, P226 MK 25, P9, CAMRS, LFP586, Mk14 EBR and more. Pre-set <strong style="color:#fff;">OFF</strong> for all full-auto guns. Can be toggled per slot.</p>
 </div>
-
-<div class="feature-card purple">
-  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(178,127,255,0.15);color:var(--accent-purple);border:1px solid rgba(178,127,255,0.3);">MOVEMENT — ATK &amp; DEF</span></div>
+<div class="features-grid-2">
+<div class="feature-card green">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(0,255,0,0.15);color:var(--accent-green);border:1px solid rgba(0,255,0,0.3);">PAGE 6</span></div>
   <div class="feature-header">
-    <span class="feature-name" style="color:var(--accent-purple);text-shadow:0 0 8px var(--accent-purple);">Movement Suite</span>
-    <div class="feature-combo"><span class="key" style="background:var(--accent-purple);">MENU ONLY</span></div>
+    <span class="feature-name" style="color:var(--accent-green);text-shadow:0 0 8px var(--accent-green);">RF Speed</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-green);">UP / DOWN</span></div>
   </div>
-  <p class="feature-desc" style="color:var(--accent-purple);">Full per-side movement features, each with its own speed slider.<br>
-  <strong style="color:#fff;">Crouch Spam</strong> — rapid crouch/stand while firing &nbsp;|&nbsp; <strong style="color:#fff;">Strafe</strong> — automated side movement<br>
-  <strong style="color:#fff;">Shaiko Lean</strong> — alternates L3/R3 while holding ADS+R2 &nbsp;|&nbsp; <strong style="color:#fff;">Lean Spam</strong> — spams R1/L1<br>
-  <strong style="color:#fff;">Tea Bag, Auto Lean, Prone Shot, Hip Lean, Inverted AR</strong> and more. ATK and DEF fully independent.</p>
+  <p class="feature-desc" style="color:var(--accent-green);">Controls how fast rapid fire spams. Higher = faster presses. Default is pre-tuned for most semi guns. Shown as a bar graph on the OLED. Adjust to match your gun's fire rate for best results.</p>
+</div>
+<div class="feature-card green">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(0,255,0,0.15);color:var(--accent-green);border:1px solid rgba(0,255,0,0.3);">PAGE 7</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-green);text-shadow:0 0 8px var(--accent-green);">RF For All</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-green);">TOGGLE</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-green);">Forces Rapid Fire ON for every gun regardless of individual settings. Useful when you want RF on a full-auto gun temporarily. Toggle ON/OFF — overrides per-slot RF settings while active.</p>
+</div>
+<div class="feature-card green">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(0,255,0,0.15);color:var(--accent-green);border:1px solid rgba(0,255,0,0.3);">PAGE 8</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-green);text-shadow:0 0 8px var(--accent-green);">Skel Key RF</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-green);">TOGGLE</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-green);">Skeleton Key RF — spams R1 instead of R2. For operators using the under-barrel shotgun (Skeleton Key attachment). Fires the under-barrel weapon rapidly using R1 instead of the main trigger. Enable separately from main RF.</p>
+</div>
+</div>
 </div>
 
+<!-- MOVEMENT -->
+<div class="subsection">Movement</div>
+<div class="features-grid">
+
+<div class="features-grid-2">
+<div class="feature-card purple">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(178,127,255,0.15);color:var(--accent-purple);border:1px solid rgba(178,127,255,0.3);">PAGES 9–10</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-purple);text-shadow:0 0 8px var(--accent-purple);">Crouch Spam</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-purple);">TOGGLE + SPEED</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-purple);">Rapidly crouches and stands while you're shooting — makes you a much harder target to hit. Active while holding R2. Speed is adjustable on the next page (Crouch Spd). Great for gunfights in tight angles.</p>
+</div>
+<div class="feature-card purple">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(178,127,255,0.15);color:var(--accent-purple);border:1px solid rgba(178,127,255,0.3);">PAGES 11–12</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-purple);text-shadow:0 0 8px var(--accent-purple);">Strafe</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-purple);">TOGGLE + SPEED</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-purple);">Automatically moves left and right repeatedly while firing — creates unpredictable lateral movement making you harder to track. Works while holding R2. Strafe Spd controls the speed of the side-to-side motion.</p>
+</div>
+</div>
+
+<div class="features-grid-2">
+<div class="feature-card pink">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,105,180,0.15);color:var(--accent-pink);border:1px solid rgba(255,105,180,0.3);">PAGES 13–14</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-pink);text-shadow:0 0 8px var(--accent-pink);">Shaiko Lean</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-pink);">L2+R2</span><span class="key-plus">hold</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-pink);">While holding L2 (ADS) and R2 (shoot), continuously alternates between leaning left (L3) and leaning right (R3) — creates rapid side-to-side lean peeking. Speed adjusted with <strong style="color:#fff;">Shaiko Spd</strong>. Also controls speed for Stick Lean. Toggle in menu to enable.</p>
+</div>
+<div class="feature-card pink">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,105,180,0.15);color:var(--accent-pink);border:1px solid rgba(255,105,180,0.3);">PAGES 15–16</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-pink);text-shadow:0 0 8px var(--accent-pink);">Lean Spam</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-pink);">L2+R2</span><span class="key-plus">hold</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-pink);">Rapidly spams the R1/L1 lean buttons while holding L2+R2. Different to Shaiko — uses the shoulder lean buttons rather than stick clicks, giving a different feel. Lean Speed slider controls the rate. Good for defenders holding angles.</p>
+</div>
+</div>
+
+<div class="features-grid-2">
 <div class="feature-card orange">
-  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,140,0,0.15);color:var(--accent-orange);border:1px solid rgba(255,140,0,0.3);">MISC — ATK &amp; DEF</span></div>
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,140,0,0.15);color:var(--accent-orange);border:1px solid rgba(255,140,0,0.3);">PAGE 17</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-orange);text-shadow:0 0 8px var(--accent-orange);">Prone Shot</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-orange);">TOGGLE</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-orange);">Automatically goes prone the moment you press R2 to shoot, then stands back up when you release. Catches enemies off guard as you drop to the floor while firing. Pairs well with anti-recoil for prone spray.</p>
+</div>
+<div class="feature-card orange">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,140,0,0.15);color:var(--accent-orange);border:1px solid rgba(255,140,0,0.3);">PAGES 18–19</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-orange);text-shadow:0 0 8px var(--accent-orange);">Tea Bag</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-orange);">TOGGLE + SPEED</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-orange);">Rapidly spam crouches on command — a pure crouch spam not tied to shooting. Great for tea-bagging or mixing into gunfights as a distraction. TeaBag Spd controls how fast it crouches/stands.</p>
+</div>
+</div>
+
+<div class="features-grid-2">
+<div class="feature-card blue">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(58,190,255,0.15);color:var(--accent-blue);border:1px solid rgba(58,190,255,0.3);">PAGE 20</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-blue);text-shadow:0 0 8px var(--accent-blue);">Auto Lean</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-blue);">TOGGLE</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-blue);">Automatically leans while ADS. When you hold L2 the script adds a lean input so you're always slightly peeking. Can be used to hold pre-aimed corners — lean out to shoot without manually pressing lean buttons.</p>
+</div>
+<div class="feature-card blue">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(58,190,255,0.15);color:var(--accent-blue);border:1px solid rgba(58,190,255,0.3);">PAGE 21</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-blue);text-shadow:0 0 8px var(--accent-blue);">Hip Lean</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-blue);">TOGGLE</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-blue);">Automatically leans while hip-firing (not ADS). Adds a lean input when you press R2 without L2. Useful for hip-fire spraying around corners — you lean slightly while you shoot without touching the lean button.</p>
+</div>
+</div>
+
+</div><!-- end movement features-grid -->
+
+<!-- MISC -->
+<div class="subsection">Misc</div>
+<div class="features-grid">
+
+<div class="features-grid-2">
+<div class="feature-card yellow">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,215,0,0.15);color:var(--accent-yellow);border:1px solid rgba(255,215,0,0.3);">PAGE 22</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-yellow);text-shadow:0 0 8px var(--accent-yellow);">Dead Zone</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-yellow);">UP / DOWN</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-yellow);">Adjusts the controller analog stick deadzone. Lower = more responsive sticks that react to smaller inputs. Higher = ignores micro-movements. Helps fine-tune aim sensitivity for your personal playstyle.</p>
+</div>
+<div class="feature-card yellow">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,215,0,0.15);color:var(--accent-yellow);border:1px solid rgba(255,215,0,0.3);">PAGE 23</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-yellow);text-shadow:0 0 8px var(--accent-yellow);">On Cams</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-yellow);">TOGGLE</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-yellow);">Keeps anti-recoil active while using operator cameras (e.g. Valkyrie cams, Maestro Evil Eye). Normally AR turns off when not directly shooting — this keeps it running while you're watching cameras and shooting from them.</p>
+</div>
+</div>
+
+<div class="features-grid-2">
+<div class="feature-card yellow">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,215,0,0.15);color:var(--accent-yellow);border:1px solid rgba(255,215,0,0.3);">PAGE 24</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-yellow);text-shadow:0 0 8px var(--accent-yellow);">Pin On Shot</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-yellow);">TOGGLE</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-yellow);">Locks your aim position the moment you start firing — prevents stick drift from moving your crosshair during a spray. Pins the aim in place when R2 is pressed so your recoil correction lands exactly where intended.</p>
+</div>
+<div class="feature-card yellow">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,215,0,0.15);color:var(--accent-yellow);border:1px solid rgba(255,215,0,0.3);">PAGE 25</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-yellow);text-shadow:0 0 8px var(--accent-yellow);">Auto Scan</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-yellow);">TOGGLE</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-yellow);">Automatically activates scanning when the feature is on — useful for operators with scan abilities like Jackal (tracking) or Lion (scan pulse). Fires the ability input automatically so you don't have to manually trigger it.</p>
+</div>
+</div>
+
+<div class="features-grid-2">
+<div class="feature-card red">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,0,0,0.15);color:var(--accent-red);border:1px solid rgba(255,0,0,0.3);">PAGE 26</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-red);text-shadow:0 0 8px var(--accent-red);">Inverted AR</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-red);">TOGGLE</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-red);">Flips the direction of the anti-recoil compensation. If vertical recoil normally pulls the stick down to counteract upward kick, this inverts it — pulls up instead. For operators or guns where standard AR feels off.</p>
+</div>
+<div class="feature-card red">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,0,0,0.15);color:var(--accent-red);border:1px solid rgba(255,0,0,0.3);">PAGE 27</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:var(--accent-red);text-shadow:0 0 8px var(--accent-red);">Abilities</span>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-red);">TOGGLE</span></div>
+  </div>
+  <p class="feature-desc" style="color:var(--accent-red);">Activates operator ability automation. When enabled, automatically uses or spams the operator's gadget. Useful for operators where holding the ability button is needed — lets you focus purely on aim and movement.</p>
+</div>
+</div>
+
+<div class="features-grid-2">
+<div class="feature-card gray" style="--card-accent:#555;">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(85,85,85,0.2);color:#888;border:1px solid rgba(85,85,85,0.3);">PAGE 28</span></div>
+  <div class="feature-header">
+    <span class="feature-name" style="color:#aaa;">LED</span>
+    <div class="feature-combo"><span class="key" style="background:#555;color:#fff;">TOGGLE</span></div>
+  </div>
+  <p class="feature-desc" style="color:#aaa;">Toggles the Cronus Zen LED indicator on or off. When OFF the light stays dark regardless of script activity. Useful if you want to keep the device less visible.</p>
+</div>
+<div class="feature-card orange">
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,140,0,0.15);color:var(--accent-orange);border:1px solid rgba(255,140,0,0.3);">PAGE 29 — ATK / PAGE 57 — DEF</span></div>
   <div class="feature-header">
     <span class="feature-name" style="color:var(--accent-orange);text-shadow:0 0 8px var(--accent-orange);">Stick Lean</span>
-    <div class="feature-combo">
-      <span class="key" style="background:var(--accent-orange);">L2+L3</span><span class="key-plus">/</span><span class="key" style="background:var(--accent-orange);">L2+R3</span>
-    </div>
+    <div class="feature-combo"><span class="key" style="background:var(--accent-orange);">L2+L3</span><span class="key-plus">/</span><span class="key" style="background:var(--accent-orange);">L2+R3</span></div>
   </div>
-  <p class="feature-desc" style="color:var(--accent-orange);">Stick-click lean spam triggered by <strong style="color:#fff;">L2 + L3/R3</strong>.<br>
-  <strong style="color:#fff;">Tap</strong> L2+L3 or L2+R3 — works as a completely normal single lean.<br>
-  <strong style="color:#fff;">Hold</strong> L2+L3 past 250ms — continuously spams lean left (L3 on/off cycle).<br>
-  <strong style="color:#fff;">Hold</strong> L2+R3 past 250ms — continuously spams lean right (R3 on/off cycle).<br>
-  Speed uses <strong style="color:#fff;">Shaiko Spd</strong> setting. Enable in Misc → Stick Lean. ATK and DEF independent.</p>
+  <p class="feature-desc" style="color:var(--accent-orange);"><strong style="color:#fff;">Tap</strong> L2+L3 or L2+R3 — works as a completely normal single lean. <strong style="color:#fff;">Hold</strong> L2+L3 past 250ms — spams lean left continuously. <strong style="color:#fff;">Hold</strong> L2+R3 past 250ms — spams lean right. Speed uses Shaiko Spd. ATK and DEF independent.</p>
+</div>
 </div>
 
+</div><!-- end misc features-grid -->
+
+<!-- R6 MISCS -->
+<div class="subsection">R6 Miscs</div>
+<div class="features-grid">
 <div class="feature-card yellow">
-  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,215,0,0.15);color:var(--accent-yellow);border:1px solid rgba(255,215,0,0.3);">R6 MISCS — PAGE 58</span></div>
+  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,215,0,0.15);color:var(--accent-yellow);border:1px solid rgba(255,215,0,0.3);">PAGE 58 — R6 MISCS</span></div>
   <div class="feature-header">
     <span class="feature-name" style="color:var(--accent-yellow);text-shadow:0 0 8px var(--accent-yellow);">Soft Triggers</span>
     <div class="feature-combo"><span class="key" style="background:var(--accent-yellow);">MENU ONLY</span></div>
   </div>
-  <p class="feature-desc" style="color:var(--accent-yellow);">Any touch of R2 or L2 — even the slightest press — instantly fires the trigger at 100%. Eliminates all trigger deadzone for the fastest possible ADS and fire response. <strong style="color:#fff;">ON by default.</strong> Toggle via <strong style="color:#fff;">R6 Miscs → Soft Triggers</strong> (accessible from the category screen with the Miscs button).</p>
+  <p class="feature-desc" style="color:var(--accent-yellow);">Any touch on R2 or L2 — even the lightest press — instantly fires at 100%. Eliminates the trigger deadzone completely for the fastest possible ADS and fire response. <strong style="color:#fff;">ON by default.</strong> Access via the <strong style="color:#fff;">R6 Miscs</strong> button on the category screen (not inside Attackers/Defenders).</p>
+</div>
 </div>
 
-<div class="feature-card pink">
-  <div style="margin-bottom:8px;"><span class="page-label" style="background:rgba(255,105,180,0.15);color:var(--accent-pink);border:1px solid rgba(255,105,180,0.3);">MISC — ATK &amp; DEF</span></div>
-  <div class="feature-header">
-    <span class="feature-name" style="color:var(--accent-pink);text-shadow:0 0 8px var(--accent-pink);">Misc Options</span>
-    <div class="feature-combo"><span class="key" style="background:var(--accent-pink);">MENU ONLY</span></div>
-  </div>
-  <p class="feature-desc" style="color:var(--accent-pink);">Per-side extras including <strong style="color:#fff;">RF For All, Skel Key RF, On Cams</strong> (recoil on operator cameras), <strong style="color:#fff;">Pin On Shot, Auto Scan, Dead Zone</strong> adjustment, <strong style="color:#fff;">Inverted AR, Abilities, LED</strong> colour control, and <strong style="color:#fff;">Stick Lean</strong> toggle.</p>
-</div>
-
-</div>
 </section>
 
+<!-- ══════════════════════════════ OPERATORS ══════════════════════════════ -->
 <section>
 <h2 class="section-title">Operators</h2>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
@@ -196,15 +370,16 @@ footer p{color:var(--text-secondary);font-size:0.95rem;margin-bottom:10px;}
 </div>
 </section>
 
+<!-- ══════════════════════════════ OLED ══════════════════════════════ -->
 <section>
 <h2 class="section-title">OLED Display</h2>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-bottom:40px;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:40px;">
 
 <div>
-  <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:2px;color:var(--accent-blue);text-shadow:0 0 8px var(--accent-blue);margin-bottom:8px;text-align:center;">ATTACKER EXAMPLE</div>
-  <div style="background:#000;border:3px solid #222;border-radius:8px;padding:18px 20px;font-family:'Courier New',monospace;font-size:0.88rem;color:#fff;box-shadow:0 0 30px rgba(0,0,0,0.8),inset 0 0 20px rgba(58,190,255,0.04);position:relative;">
-    <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#0a0a0f;padding:0 10px;font-family:'Orbitron',sans-serif;font-size:0.55rem;color:var(--text-secondary);letter-spacing:2px;">OLED</div>
-    <div style="text-align:center;font-size:1rem;font-weight:bold;margin-bottom:8px;color:#3ABEFF;text-shadow:0 0 8px #3ABEFF;">SLEDGE</div>
+  <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:2px;color:var(--accent-blue);text-shadow:0 0 8px var(--accent-blue);margin-bottom:8px;text-align:center;">ATTACKER — EXAMPLE</div>
+  <div style="background:#000;border:3px solid #222;border-radius:8px;padding:16px 18px;font-family:'Courier New',monospace;font-size:0.85rem;color:#fff;box-shadow:0 0 30px rgba(0,0,0,0.8),inset 0 0 20px rgba(58,190,255,0.04);position:relative;">
+    <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#0a0a0f;padding:0 8px;font-family:'Orbitron',sans-serif;font-size:0.5rem;color:var(--text-secondary);letter-spacing:2px;">OLED</div>
+    <div style="text-align:center;font-size:0.95rem;font-weight:bold;margin-bottom:8px;color:#3ABEFF;text-shadow:0 0 8px #3ABEFF;">SLEDGE</div>
     <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Gun</span><span style="color:#00d4ff;">L85A2 *</span></div>
     <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>AR Vertical</span><span style="color:#0f0;">26</span></div>
     <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>AR Horiz.</span><span style="color:#0f0;">7</span></div>
@@ -214,58 +389,74 @@ footer p{color:var(--text-secondary);font-size:0.95rem;margin-bottom:10px;}
 </div>
 
 <div>
-  <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:2px;color:var(--accent-purple);text-shadow:0 0 8px var(--accent-purple);margin-bottom:8px;text-align:center;">DEFENDER EXAMPLE</div>
-  <div style="background:#000;border:3px solid #222;border-radius:8px;padding:18px 20px;font-family:'Courier New',monospace;font-size:0.88rem;color:#fff;box-shadow:0 0 30px rgba(0,0,0,0.8),inset 0 0 20px rgba(178,127,255,0.04);position:relative;">
-    <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#0a0a0f;padding:0 10px;font-family:'Orbitron',sans-serif;font-size:0.55rem;color:var(--text-secondary);letter-spacing:2px;">OLED</div>
-    <div style="text-align:center;font-size:1rem;font-weight:bold;margin-bottom:8px;color:#B27FFF;text-shadow:0 0 8px #B27FFF;">JAGER</div>
-    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Gun</span><span style="color:#B27FFF;">M870 *</span></div>
-    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>AR Vertical</span><span style="color:#0f0;">24</span></div>
-    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>AR Horiz.</span><span style="color:#0f0;">0</span></div>
+  <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:2px;color:var(--accent-purple);text-shadow:0 0 8px var(--accent-purple);margin-bottom:8px;text-align:center;">DEFENDER — EXAMPLE</div>
+  <div style="background:#000;border:3px solid #222;border-radius:8px;padding:16px 18px;font-family:'Courier New',monospace;font-size:0.85rem;color:#fff;box-shadow:0 0 30px rgba(0,0,0,0.8),inset 0 0 20px rgba(178,127,255,0.04);position:relative;">
+    <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#0a0a0f;padding:0 8px;font-family:'Orbitron',sans-serif;font-size:0.5rem;color:var(--text-secondary);letter-spacing:2px;">OLED</div>
+    <div style="text-align:center;font-size:0.95rem;font-weight:bold;margin-bottom:8px;color:#B27FFF;text-shadow:0 0 8px #B27FFF;">JAGER</div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Gun</span><span style="color:#B27FFF;">416C CARB. *</span></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>AR Vertical</span><span style="color:#0f0;">37</span></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>AR Horiz.</span><span style="color:#0f0;">-2</span></div>
     <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Rapid Fire</span><span style="color:#555;">OFF</span></div>
     <div style="display:flex;justify-content:space-between;"><span>Shaiko Lean</span><span style="color:#0f0;">ON</span></div>
   </div>
 </div>
 
 <div>
-  <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:2px;color:var(--accent-cyan);text-shadow:0 0 8px var(--accent-cyan);margin-bottom:8px;text-align:center;">GUN PAGE EXAMPLE</div>
-  <div style="background:#000;border:3px solid #222;border-radius:8px;padding:18px 20px;font-family:'Courier New',monospace;font-size:0.88rem;color:#fff;box-shadow:0 0 30px rgba(0,0,0,0.8),inset 0 0 20px rgba(0,212,255,0.04);position:relative;">
-    <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#0a0a0f;padding:0 10px;font-family:'Orbitron',sans-serif;font-size:0.55rem;color:var(--text-secondary);letter-spacing:2px;">OLED</div>
-    <div style="text-align:center;font-size:1rem;font-weight:bold;margin-bottom:8px;color:#00d4ff;text-shadow:0 0 8px #00d4ff;">PMR90A2</div>
-    <div style="text-align:center;margin-bottom:8px;font-size:0.8rem;color:#666;">HANDGUN</div>
+  <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:2px;color:var(--accent-cyan);text-shadow:0 0 8px var(--accent-cyan);margin-bottom:8px;text-align:center;">GUN PAGE</div>
+  <div style="background:#000;border:3px solid #222;border-radius:8px;padding:16px 18px;font-family:'Courier New',monospace;font-size:0.85rem;color:#fff;box-shadow:0 0 30px rgba(0,0,0,0.8),inset 0 0 20px rgba(0,212,255,0.04);position:relative;">
+    <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#0a0a0f;padding:0 8px;font-family:'Orbitron',sans-serif;font-size:0.5rem;color:var(--text-secondary);letter-spacing:2px;">OLED</div>
+    <div style="text-align:center;font-size:0.95rem;font-weight:bold;margin-bottom:6px;color:#00d4ff;text-shadow:0 0 8px #00d4ff;">PMR90A2</div>
+    <div style="text-align:center;margin-bottom:8px;font-size:0.75rem;color:#666;">HANDGUN</div>
     <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="color:#0f0;">PRI *</span><span style="color:#00d4ff;">PMR90A2</span></div>
-    <div style="margin-top:10px;font-size:0.75rem;color:#444;text-align:center;">↑↓ Browse &nbsp;·&nbsp; ✕ Select</div>
+    <div style="margin-top:8px;font-size:0.72rem;color:#444;text-align:center;">↑↓ Browse &nbsp;·&nbsp; ✕ Select</div>
+  </div>
+</div>
+
+<div>
+  <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:2px;color:var(--accent-green);text-shadow:0 0 8px var(--accent-green);margin-bottom:8px;text-align:center;">MOVEMENT PAGE</div>
+  <div style="background:#000;border:3px solid #222;border-radius:8px;padding:16px 18px;font-family:'Courier New',monospace;font-size:0.85rem;color:#fff;box-shadow:0 0 30px rgba(0,0,0,0.8),inset 0 0 20px rgba(0,255,0,0.04);position:relative;">
+    <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#0a0a0f;padding:0 8px;font-family:'Orbitron',sans-serif;font-size:0.5rem;color:var(--text-secondary);letter-spacing:2px;">OLED</div>
+    <div style="text-align:center;font-size:0.95rem;font-weight:bold;margin-bottom:8px;color:#0f0;text-shadow:0 0 8px #0f0;">Shaiko Lean</div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Status</span><span style="color:#0f0;">ON</span></div>
+    <div style="margin-top:6px;font-size:0.72rem;color:#555;text-align:center;">L2+R2 to activate</div>
   </div>
 </div>
 
 <div>
   <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:2px;color:var(--accent-yellow);text-shadow:0 0 8px var(--accent-yellow);margin-bottom:8px;text-align:center;">R6 MISCS</div>
-  <div style="background:#000;border:3px solid #222;border-radius:8px;padding:18px 20px;font-family:'Courier New',monospace;font-size:0.88rem;color:#fff;box-shadow:0 0 30px rgba(0,0,0,0.8),inset 0 0 20px rgba(255,215,0,0.04);position:relative;">
-    <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#0a0a0f;padding:0 10px;font-family:'Orbitron',sans-serif;font-size:0.55rem;color:var(--text-secondary);letter-spacing:2px;">OLED</div>
-    <div style="text-align:center;font-size:1rem;font-weight:bold;margin-bottom:8px;color:#ffd700;text-shadow:0 0 8px #ffd700;">Binds R6</div>
+  <div style="background:#000;border:3px solid #222;border-radius:8px;padding:16px 18px;font-family:'Courier New',monospace;font-size:0.85rem;color:#fff;box-shadow:0 0 30px rgba(0,0,0,0.8),inset 0 0 20px rgba(255,215,0,0.04);position:relative;">
+    <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#0a0a0f;padding:0 8px;font-family:'Orbitron',sans-serif;font-size:0.5rem;color:var(--text-secondary);letter-spacing:2px;">OLED</div>
+    <div style="text-align:center;font-size:0.95rem;font-weight:bold;margin-bottom:8px;color:#ffd700;text-shadow:0 0 8px #ffd700;">Binds R6</div>
     <div style="display:flex;justify-content:space-between;"><span>Soft Triggers</span><span style="color:#0f0;">ON</span></div>
   </div>
 </div>
 
 </div>
 
+<!-- ══════════════════════════════ QUICK REF ══════════════════════════════ -->
 <h2 class="section-title">Quick Reference</h2>
 <div class="quick-ref">
 <table>
   <thead><tr><th>Input</th><th>Action</th><th>Where</th></tr></thead>
   <tbody>
     <tr><td><span class="key" style="background:var(--accent-cyan);">L2</span> + <span class="key" style="background:var(--accent-cyan);">OPTIONS</span></td><td>Open / Close Menu</td><td style="color:var(--accent-cyan);">All</td></tr>
-    <tr><td><span class="key" style="background:var(--accent-blue);">✕</span> on Gun Page</td><td>Select active gun — loads its vert/horiz/RF</td><td style="color:var(--accent-blue);">Op &amp; Gun</td></tr>
-    <tr><td><span class="key" style="background:var(--accent-green);">UP / DOWN</span> on Gun Page</td><td>Browse guns without changing values</td><td style="color:var(--accent-green);">Op &amp; Gun</td></tr>
-    <tr><td><span class="key" style="background:var(--accent-purple);">L2</span> + <span class="key" style="background:var(--accent-purple);">L3</span> hold</td><td>Spam lean left continuously</td><td style="color:var(--accent-purple);">Misc → Stick Lean ON</td></tr>
-    <tr><td><span class="key" style="background:var(--accent-purple);">L2</span> + <span class="key" style="background:var(--accent-purple);">R3</span> hold</td><td>Spam lean right continuously</td><td style="color:var(--accent-purple);">Misc → Stick Lean ON</td></tr>
-    <tr><td><span class="key" style="background:var(--accent-orange);">L2</span> + <span class="key" style="background:var(--accent-orange);">L3/R3</span> tap</td><td>Normal single lean (no spam)</td><td style="color:var(--accent-orange);">Misc → Stick Lean ON</td></tr>
-    <tr><td><span class="key" style="background:var(--accent-pink);">L2</span> + <span class="key" style="background:var(--accent-pink);">R2</span> + <span class="key" style="background:var(--accent-pink);">hold ADS</span></td><td>Shaiko Lean (alt L3/R3)</td><td style="color:var(--accent-pink);">Movement → Shaiko ON</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-blue);">UP / DOWN</span></td><td>Change operator</td><td style="color:var(--accent-blue);">Op &amp; Gun → Page 1</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-blue);">UP / DOWN</span></td><td>Browse guns (no value change)</td><td style="color:var(--accent-blue);">Op &amp; Gun → Page 2</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-cyan);">✕ Cross</span> on Gun Page</td><td>Select gun — loads vert/horiz/RF</td><td style="color:var(--accent-cyan);">Op &amp; Gun → Page 2</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-green);">UP / DOWN</span></td><td>Adjust AR Vertical value</td><td style="color:var(--accent-green);">Anti-Recoil → Page 3</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-green);">UP / DOWN</span></td><td>Adjust AR Horizontal value</td><td style="color:var(--accent-green);">Anti-Recoil → Page 4</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-green);">UP</span> = ON / <span class="key" style="background:var(--accent-green);">DOWN</span> = OFF</td><td>Toggle Rapid Fire</td><td style="color:var(--accent-green);">Rapid Fire → Page 5</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-pink);">L2 + R2</span> hold</td><td>Shaiko Lean (alt L3/R3)</td><td style="color:var(--accent-pink);">Movement → Shaiko ON</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-purple);">L2</span> + <span class="key" style="background:var(--accent-purple);">L3</span> hold 250ms+</td><td>Spam lean left</td><td style="color:var(--accent-purple);">Misc → Stick Lean ON</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-purple);">L2</span> + <span class="key" style="background:var(--accent-purple);">R3</span> hold 250ms+</td><td>Spam lean right</td><td style="color:var(--accent-purple);">Misc → Stick Lean ON</td></tr>
+    <tr><td><span class="key" style="background:var(--accent-orange);">L2</span> + <span class="key" style="background:var(--accent-orange);">L3/R3</span> tap</td><td>Normal single lean</td><td style="color:var(--accent-orange);">Misc → Stick Lean ON</td></tr>
     <tr><td><span class="key" style="background:var(--accent-yellow);">R2 / L2</span> any touch</td><td>Full trigger press instantly</td><td style="color:var(--accent-yellow);">R6 Miscs → Soft Triggers ON</td></tr>
   </tbody>
 </table>
 </div>
 </section>
 
+<!-- ══════════════════════════════ LED ══════════════════════════════ -->
 <section>
 <h2 class="section-title">LED Feedback</h2>
 <div class="led-grid">
@@ -275,23 +466,25 @@ footer p{color:var(--text-secondary);font-size:0.95rem;margin-bottom:10px;}
   <div class="led-item"><div class="led-dot purple"></div><span class="led-label"><strong>Purple</strong> — Shaiko / Stick Lean</span></div>
   <div class="led-item"><div class="led-dot orange"></div><span class="led-label"><strong>Orange</strong> — Rapid Fire firing</span></div>
   <div class="led-item"><div class="led-dot yellow"></div><span class="led-label"><strong>Yellow</strong> — Crouch Spam on</span></div>
-  <div class="led-item"><div class="led-dot pink"></div><span class="led-label"><strong>Pink</strong> — Lean Spam on</span></div>
+  <div class="led-item"><div class="led-dot pink"></div><span class="led-label"><strong>Pink</strong> — Lean Spam active</span></div>
   <div class="led-item"><div class="led-dot red"></div><span class="led-label"><strong>Red</strong> — Abilities active</span></div>
   <div class="led-item"><div class="led-dot gray"></div><span class="led-label"><strong>Gray</strong> — All features OFF</span></div>
 </div>
 </section>
 
+<!-- ══════════════════════════════ TIPS ══════════════════════════════ -->
 <section>
 <h2 class="section-title">Tips &amp; Usage</h2>
 <ul class="tips-list">
-  <li><strong style="color:var(--accent-cyan);">First time setup:</strong> Clear the Zen's persistent memory before loading the script. This lets all the baked-in gun defaults load cleanly without old data interfering.</li>
-  <li><strong style="color:var(--accent-blue);">Selecting your gun every session:</strong> When you change your loadout in-game, open the menu, navigate to your op's <strong>Gun</strong> page and press ✕ on whichever gun you equipped. Values load instantly and save to the Zen — no need to do it again unless you swap guns.</li>
-  <li><strong style="color:var(--accent-green);">Same gun = same value:</strong> MPX on Valkyrie and MPX on Tubarao share the same saved values. Tuning MPX once updates it across every operator that uses it.</li>
-  <li><strong style="color:var(--accent-purple);">Shaiko vs Stick Lean:</strong> Shaiko (Movement tab) spams both left and right lean alternating while ADS+shooting. Stick Lean (Misc tab) spams one direction only — hold <strong>L2+L3</strong> for left, <strong>L2+R3</strong> for right. Best for aggressive one-way peeking.</li>
-  <li><strong style="color:var(--accent-orange);">Rapid Fire is already tuned:</strong> All semi guns come with RF ON pre-set at the right speed. Full-auto guns come with RF OFF. Any changes you make in the menu save permanently to the Zen.</li>
-  <li><strong style="color:var(--accent-yellow);">Soft Triggers are ON by default.</strong> Barely touching L2 or R2 fires instantly at 100%. Turn off in R6 Miscs if needed for any reason.</li>
-  <li><strong style="color:var(--accent-pink);">ATK and DEF are completely independent.</strong> Every feature — recoil, RF, movement speed, stick lean — can be configured differently per side. Changes on ATK never affect DEF.</li>
-  <li><strong style="color:var(--accent-red);">Everything saves automatically</strong> when you close the menu. Next power cycle loads your exact settings back. No need to reconfigure each session.</li>
+  <li><strong style="color:var(--accent-cyan);">First time setup:</strong> Clear the Zen's persistent memory before loading the script for the first time. This lets all the pre-tuned gun defaults load cleanly from scratch.</li>
+  <li><strong style="color:var(--accent-blue);">Selecting your gun:</strong> Every time you change your in-game loadout, open the menu, go to your op's Gun page and press ✕ on the gun you equipped. The script loads the correct vert/horiz/RF instantly and saves it.</li>
+  <li><strong style="color:var(--accent-green);">Same gun = same value everywhere:</strong> MPX is the same tuned value on Valkyrie, Warden, and Tubarao. Tweaking it once on any of them updates it for all three.</li>
+  <li><strong style="color:var(--accent-purple);">Shaiko vs Stick Lean:</strong> Shaiko (Movement) alternates L3 + R3 while you hold L2+R2 — both directions. Stick Lean (Misc) spams one direction only — L2+L3 = only left, L2+R3 = only right. Use Stick Lean for aggressive one-sided peeking.</li>
+  <li><strong style="color:var(--accent-pink);">Movement features stack:</strong> Crouch Spam and Strafe can run together. Shaiko and Crouch Spam can run at the same time too. Experiment with combining them for unpredictable gunfight movement.</li>
+  <li><strong style="color:var(--accent-orange);">Rapid Fire is pre-tuned:</strong> All semi guns come with RF ON at the right speed. Full-auto guns come with RF OFF. You never have to manually set these — just select your gun and it's done.</li>
+  <li><strong style="color:var(--accent-yellow);">Soft Triggers are ON by default.</strong> The lightest touch of L2 or R2 fires at 100%. If you want more analog control over ADS speed, turn it off in R6 Miscs.</li>
+  <li><strong style="color:var(--accent-red);">ATK and DEF are fully independent.</strong> Every single setting — recoil, RF, movement features, speed sliders, stick lean, soft triggers — can be different per side. ATK changes never affect DEF and vice versa.</li>
+  <li><strong style="color:#fff;">Everything auto-saves.</strong> Close the menu and all your changes write to the Zen's persistent memory. Next power on loads everything back exactly as you left it.</li>
 </ul>
 </section>
 
@@ -311,7 +504,7 @@ resize();window.addEventListener('resize',resize);
 const themes=[
   {primary:[0,212,255],secondary:[58,190,255]},
   {primary:[178,127,255],secondary:[120,80,200]},
-  {primary:[0,212,255],secondary:[0,255,150]},
+  {primary:[0,212,255],secondary:[0,200,140]},
   {primary:[58,190,255],secondary:[178,127,255]},
 ];
 let ti=0,ni=1,bt=0;
